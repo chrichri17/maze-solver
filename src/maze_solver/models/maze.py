@@ -50,7 +50,7 @@ def validate_rows_columns(maze: Maze) -> None:
         for x in range(maze.width):
             square = maze[y * maze.width + x]
             assert square.row == y, "Wrong square.row"
-            assert square.column == x, "Wrong square.row"
+            assert square.column == x, "Wrong square.column"
 
 
 def validate_entrance(maze: Maze) -> None:
