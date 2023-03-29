@@ -2,8 +2,8 @@ from dataclasses import dataclass
 from functools import cached_property
 from typing import Iterator
 
-from maze_solver.models.square import Square
 from maze_solver.models.role import Role
+from maze_solver.models.square import Square
 
 
 @dataclass(frozen=True)
