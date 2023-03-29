@@ -10,4 +10,4 @@ class Square:
     row: int
     column: int
     border: Border
-    role: Role.NONE
+    role: Role = Role.NONE
