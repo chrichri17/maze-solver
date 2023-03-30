@@ -10,5 +10,8 @@ dependencies = [
     "networkx >= 3.0",
 ]
 
+[project.scripts]
+solve = "maze_solver.__main__:main"
+
 [tool.black]
 line-length = 86
