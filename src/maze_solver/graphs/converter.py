@@ -1,3 +1,5 @@
+import math
+
 from typing import NamedTuple, TypeAlias
 
 import networkx as nx
@@ -13,9 +15,20 @@ Node: TypeAlias = Square
 class Edge(NamedTuple):
     node1: Node
     node2: Node
-    
+
+    @property
+    def distance(self) -> float:
+        return math.dist(
+            (self.node1.row, self.node1.column),
+            (self.node2.row, self.node2.column),
+        )
+
+
 def make_graph(maze: Maze) -> nx.Graph:
-    return nx.Graph(get_edges(maze, get_nodes(maze)))
+    return nx.Graph(
+        (edge.node1, edge.node2, {"weight": edge.distance})
+        for edge in get_edges(maze, get_nodes(maze))
+    )
 
 
 def get_nodes(maze: Maze) -> set[Node]:
