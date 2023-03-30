@@ -24,7 +24,8 @@ class SVG:
 
     @property
     def html_content(self) -> str:
-        return textwrap.dedent("""\
+        return textwrap.dedent(
+            """\
             <!DOCTYPE html>
             <html lang="en">
             <head>
@@ -35,10 +36,13 @@ class SVG:
             <body>
                 {0}
             </body>
-            </html>""").format(self.xml_content)
-    
+            </html>"""
+        ).format(self.xml_content)
+
     def preview(self) -> None:
-        with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", suffix=".html", delete=False) as file:
+        with tempfile.NamedTemporaryFile(
+            mode="w", encoding="utf-8", suffix=".html", delete=False
+        ) as file:
             file.write(self.html_content)
         webbrowser.open(f"file://{file.name}")
 

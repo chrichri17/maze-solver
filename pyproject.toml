@@ -9,3 +9,6 @@ version = "1.0.0"
 dependencies = [
     "networkx >= 3.0",
 ]
+
+[tool.black]
+line-length = 86
