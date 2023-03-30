@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Protocol, NamedTuple
+from typing import NamedTuple, Protocol
 
 
 class Primitive(Protocol):
