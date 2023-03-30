@@ -18,3 +18,17 @@ def solve(maze: Maze) -> Solution | None:
         )
     except nx.NetworkXException:
         return None
+
+
+def solve(maze: Maze) -> list[Solution]:
+    try:
+        return [
+            Solution(squares=tuple(path))
+            for path in nx.all_shortest_paths(
+                make_graph(maze),
+                source=maze.entrance,
+                target=maze.exit,
+            )
+        ]
+    except nx.NetworkXException:
+        return []
