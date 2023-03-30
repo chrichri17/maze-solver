@@ -24,7 +24,7 @@ class Edge(NamedTuple):
         )
 
     @property
-    def filp(self) -> "Edge":
+    def flip(self) -> "Edge":
         return Edge(self.node2, self.node1)
 
     def weight(self, bonus=1, penalty=2) -> float:

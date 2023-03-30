@@ -21,7 +21,7 @@ def solve(maze: Maze) -> Solution | None:
         return None
 
 
-def solve(maze: Maze) -> list[Solution]:
+def solve_all(maze: Maze) -> list[Solution]:
     try:
         return [
             Solution(squares=tuple(path))
