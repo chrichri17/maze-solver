@@ -1,9 +1,11 @@
 from dataclasses import dataclass
 from functools import cached_property
+from pathlib import Path
 from typing import Iterator
 
 from maze_solver.models.role import Role
 from maze_solver.models.square import Square
+from maze_solver.persistence.serializer import dump_squares, load_squares
 
 
 @dataclass(frozen=True)
@@ -15,12 +17,6 @@ class Maze:
         validate_rows_columns(self)
         validate_entrance(self)
         validate_exit(self)
-
-    def __iter__(self) -> Iterator[Square]:
-        return iter(self.squares)
-
-    def __getitem__(self, index: int) -> Square:
-        return self.squares[index]
 
     @cached_property
     def width(self):
@@ -37,6 +33,19 @@ class Maze:
     @cached_property
     def exit(self) -> Square:
         return next(sq for sq in self if sq.role is Role.EXIT)
+
+    def dump(self, path: Path) -> None:
+        dump_squares(self.width, self.height, self.squares, path)
+
+    @classmethod
+    def load(cls, path: Path) -> "Maze":
+        return cls(tuple(load_squares(path)))
+
+    def __iter__(self) -> Iterator[Square]:
+        return iter(self.squares)
+
+    def __getitem__(self, index: int) -> Square:
+        return self.squares[index]
 
 
 def validate_indices(maze: Maze) -> None:
