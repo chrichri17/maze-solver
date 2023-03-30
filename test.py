@@ -29,3 +29,5 @@ svg = SVGRenderer().render(maze, solution)
 
 with Path("maze.svg").open(mode="w", encoding="utf-8") as file:
     file.write(svg.xml_content)
+
+# svg.preview()
