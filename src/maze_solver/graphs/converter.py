@@ -23,12 +23,29 @@ class Edge(NamedTuple):
             (self.node2.row, self.node2.column),
         )
 
+    @property
+    def filp(self) -> "Edge":
+        return Edge(self.node2, self.node1)
 
-def make_graph(maze: Maze) -> nx.Graph:
-    return nx.Graph(
-        (edge.node1, edge.node2, {"weight": edge.distance})
-        for edge in get_edges(maze, get_nodes(maze))
+    def weight(self, bonus=1, penalty=2) -> float:
+        match self.node2.role:
+            case Role.REWARD:
+                return self.distance - bonus
+            case Role.ENEMY:
+                return self.distance + penalty
+            case _:
+                return self.distance
+
+
+def make_graph(maze: Maze) -> nx.DiGraph:
+    return nx.DiGraph(
+        (edge.node1, edge.node2, {"weight": edge.weight()})
+        for edge in get_directed_edges(maze, get_nodes(maze))
     )
+
+
+def get_directed_edges(maze: Maze, nodes: set[Node]) -> set[Node]:
+    return (edges := get_edges(maze, nodes)) | {edge.flip for edge in edges}
 
 
 def get_nodes(maze: Maze) -> set[Node]:
